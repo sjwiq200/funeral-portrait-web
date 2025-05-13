@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    width: 100vw;
+    height: 100svh;
+    font-family: Pretendard;
+    @apply scrollbar-hide;
+    /* font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; */
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
