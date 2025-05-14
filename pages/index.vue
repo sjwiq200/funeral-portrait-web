@@ -12,39 +12,36 @@ let cube: any = null;
 let torusKnot: any = null;
 
 function initScene() {
-  
-  camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
-  camera.position.set( 0, 15, 35 );
+  // three.js에서의 컨테이너
   scene = new THREE.Scene();
+}
 
-  // Geometry
-  // let geometry = new THREE.TorusKnotGeometry( 25, 8, 75, 20 );
-  // let material = new THREE.MeshPhongMaterial( {
-  //   color: 0xff0000,
-  //   shininess: 150,
-  //   specular: 0x222222
-  // });
+function initCamera() {
+  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight);
+  // camera.position.set( 0, 15, 35 );
+  camera.position.z = 50;
+}
 
-  // torusKnot = new THREE.Mesh( geometry, material );
-  // torusKnot.scale.multiplyScalar( 1 / 18 );
-  // torusKnot.position.y = 3;
-  // torusKnot.castShadow = true;
-  // torusKnot.receiveShadow = true;
-  // scene.add( torusKnot );
+function initObject() {
+  // 원환면
+  /* const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+  const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+  const mesh = new THREE.Mesh(geometry, material); */
 
-  // 바닥판 그리기
-  const geometry = new THREE.BoxGeometry( 10, 0.15, 10 );
-  const material = new THREE.MeshPhongMaterial( {
-    color: 0xa0adaf,
-    shininess: 150,
-    specular: 0x111111
-  } );
+  const geometry = new THREE.BoxGeometry(50,1,50);
+  const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.x = 0;
+  mesh.position.y = 0;
+  mesh.position.z = 1;
 
-  const ground = new THREE.Mesh( geometry, material );
-  ground.scale.multiplyScalar( 3 );
-  ground.castShadow = false;
-  ground.receiveShadow = true;
-  scene.add( ground );
+  scene.add(mesh)
+}
+
+// 축을 시각화해서 보여주는 속성 (x: 빨강, y: 초록, z: 파랑)
+function initAxesHelper() {
+  const axesHelper = new THREE.AxesHelper(10)
+  scene.add(axesHelper)
 }
 
 function initRenderer() {
@@ -52,8 +49,6 @@ function initRenderer() {
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.setAnimationLoop( animate );
-  // renderer.shadowMap.enabled = true;
-  // renderer.shadowMap.type = THREE.BasicShadowMap;
   container.value.appendChild(renderer.domElement);
 }
 
@@ -70,20 +65,12 @@ function animate() {
 
 function init() {
   initScene();
+  initAxesHelper();
+  initCamera();
+  initObject();
   initRenderer();
-
+  initMouseControl();
   
-  /* renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setAnimationLoop( animate );
-  container.value.appendChild(renderer.domElement);
-
-  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
-
-  camera.position.z = 5; */
 };
 
 
